@@ -9,20 +9,44 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" to="/">Home</router-link>
+          <router-link class="nav-link"  v-if="$auth.isAuthenticated" to="/dashboard">Dashboard</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="!$auth.isAuthenticated">
           <router-link class="nav-link" to="/login">Login</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item"  v-if="!$auth.isAuthenticated">
           <router-link class="nav-link" to="/register">Register</router-link>
         </li>
       </ul>
-        <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <button class="nav-link btn btn-link" @click="logout">Logout</button>
-        </li>
-      </ul>
+           <ul class="navbar-nav ms-auto" v-if="$auth.isAuthenticated">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle d-flex align-items-center"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+            <img
+                src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+                alt="Profile"
+                class="rounded-circle me-2"
+                width="35"
+                height="35"
+                />
+              <span class="d-none d-lg-inline fw-semibold">{{ $auth.user?.name }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+              <li>
+                <router-link class="dropdown-item" to="/dashboard">Dashboard</router-link>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <button class="dropdown-item text-danger" @click="logout">Logout</button>
+              </li>
+            </ul>
+          </li>
+        </ul>
     </div>
   </div>
 </nav>

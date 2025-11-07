@@ -8,11 +8,7 @@
 import { onMounted } from 'vue';
 
 onMounted(() => {
-  const token = localStorage.getItem('auth_token');
-  if (token) {
-    auth.fetchUser()
 
-  }
 });
 
 </script>

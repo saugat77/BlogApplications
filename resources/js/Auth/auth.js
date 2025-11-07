@@ -1,14 +1,30 @@
+// src/middleware/auth.js
 import { reactive } from 'vue'
-import axios from 'axios' // your axios instance with Bearer token
+import axios from 'axios'
 
 export const auth = reactive({
   user: null,
+  loading: false,
+
+  get isAuthenticated() {
+    return !!this.user
+  },
+
   async fetchUser() {
+    this.loading = true
     try {
-      const response = await axios.get('/api/user')
-      this.user = response.data
+      const res = await axios.get('/api/user')
+      this.user = res.data
     } catch (err) {
-        console.error('Failed to fetch user', err)
+      this.user = null
+      localStorage.removeItem('auth_token')
+    } finally {
+      this.loading = false
     }
   },
+
+  logout() {
+    this.user = null
+    localStorage.removeItem('auth_token')
+  }
 })
