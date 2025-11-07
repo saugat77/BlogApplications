@@ -4,6 +4,13 @@
     <p>Welcome to your Vue + Laravel app!</p>
   </div>
 </template>
-<script>
-
+<script setup>
+ import { auth } from '../Auth/auth';
+ auth.fetchUser();
 </script>
+<style scoped>
+nav a.router-link-active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+</style>

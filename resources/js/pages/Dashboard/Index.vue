@@ -8,8 +8,11 @@
 import { onMounted } from 'vue';
 
 onMounted(() => {
-  console.log('Home component mounted');
-  console.log('API Base URL:', localStorage.getItem('auth_token'));
+  const token = localStorage.getItem('auth_token');
+  if (token) {
+    auth.fetchUser()
+
+  }
 });
 
 </script>
