@@ -1,7 +1,7 @@
 <template>
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
   <div class="container-fluid">
-    <router-link class="navbar-brand" to="/">MyApp</router-link>
+    <div class="navbar-brand">MyApp</div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link"  v-if="$auth.isAuthenticated" to="/dashboard">Dashboard</router-link>
+          <router-link class="nav-link" to="/">Home</router-link>
         </li>
         <li class="nav-item" v-if="!$auth.isAuthenticated">
           <router-link class="nav-link" to="/login">Login</router-link>

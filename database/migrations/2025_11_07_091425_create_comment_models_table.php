@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_models', function (Blueprint $table) {
-            $table->id();
+        Schema::create('comment_models', function (Blueprint $table) {
+           $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
-            $table->string('title');
-            $table->text('thumbnail')->nullable();
-            $table->longText('body');
+            $table->text('body');
+            $table->morphs('commentable'); // commentable_id + commentable_type
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_models');
+        Schema::dropIfExists('comment_models');
     }
 };

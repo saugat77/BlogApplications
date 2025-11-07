@@ -3,7 +3,9 @@ import Home from '../pages/Home.vue'
 import Login from '../Auth/Login.vue'
 import Register from '../Auth/Register.vue'
 import Dashboard from '../pages/Dashboard/Index.vue'
+import PostLists from '../pages/Post/PostList.vue'
 import { auth } from '../Auth/auth'
+import CategoryList from '../pages/Categories/CategoryList.vue'
 
 const routes = [
   {
@@ -28,6 +30,18 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
+    meta: { requiresAuth: true }
+  },
+   {
+    path: '/post_lists',
+    name: 'PostLists',
+    component: PostLists,
+    meta: { requiresAuth: true }
+  },
+    {
+    path: '/category_lists',
+    name: 'CategoryLists',
+    component: CategoryList,
     meta: { requiresAuth: true }
   }
 ]
