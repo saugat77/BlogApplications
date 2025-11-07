@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('tags_models', function (Blueprint $table) {
             $table->id();
+             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+        });
+          Schema::create('post_tag_pivot', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('post_id')->constrained()->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -24,5 +31,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('tags_models');
+        Schema::dropIfExists('post_tag');
     }
 };

@@ -108,12 +108,16 @@ const addComment = async (postId) => {
 }
 
 onMounted(async () => {
-  fetchPosts()
-  const [catRes, tagRes] = await Promise.all([
-    axios.get('/api/category/all'),
-    // axios.get('/api/tags')
-  ])
-  categories.value = catRes.data
-  tags.value = tagRes.data
+  try {
+    await fetchPosts()
+
+    const catRes = await axios.get('/api/category/all')
+    // const tagRes = await axios.get('/api/tags') // uncomment when ready
+
+    categories.value = catRes.data
+    // tags.value = tagRes?.data || [] // safe fallback
+  } catch (err) {
+    console.error('Error fetching posts or categories:', err)
+  }
 })
 </script>

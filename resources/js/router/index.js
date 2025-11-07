@@ -6,6 +6,7 @@ import Dashboard from '../pages/Dashboard/Index.vue'
 import PostLists from '../pages/Post/PostList.vue'
 import { auth } from '../Auth/auth'
 import CategoryList from '../pages/Categories/CategoryList.vue'
+import TagList from '../pages/Tags/TagList.vue'
 
 const routes = [
   {
@@ -43,7 +44,13 @@ const routes = [
     name: 'CategoryLists',
     component: CategoryList,
     meta: { requiresAuth: true }
-  }
+  },
+    {
+    path: '/tag_lists',
+    name: 'TagLists',
+    component: TagList,
+    meta: { requiresAuth: true }
+  },
 ]
 
 const router = createRouter({

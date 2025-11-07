@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-       $perPage = $request->get('per_page', 10); // optional, default 10
+       $perPage = $request->get('per_page', 6); // optional, default 10
         $page = $request->get('page', 1);
 
         $query = DB::table('category_models')->where('deleted_at', null)->orderBy('id', 'desc');

@@ -46,7 +46,7 @@ const postModal = ref(null)
 const fetchPosts = async () => {
   try {
     const res = await axios.get('/api/posts')
-    posts.value = res.data
+    posts.value = res?.data
   } catch (err) {
     console.error(err)
   }

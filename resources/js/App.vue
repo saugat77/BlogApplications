@@ -1,7 +1,7 @@
 <template>
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
   <div class="container-fluid">
-    <div class="navbar-brand">MyApp</div>
+    <div class="navbar-brand" to="#">MyApp</div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -18,35 +18,31 @@
           <router-link class="nav-link" to="/register">Register</router-link>
         </li>
       </ul>
-           <ul class="navbar-nav ms-auto" v-if="$auth.isAuthenticated">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle d-flex align-items-center"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
-                alt="Profile"
-                class="rounded-circle me-2"
-                width="35"
-                height="35"
+        <ul class="navbar-nav ms-auto" v-if="$auth.isAuthenticated">
+            <li class="nav-item dropdown"  @click="toggleDropdown">
+                <a  @click.prevent
+                class="nav-link dropdown-toggle d-flex align-items-center"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+                    alt="Profile"
+                    class="rounded-circle me-2"
+                    width="35"
+                    height="35"
                 />
-              <span class="d-none d-lg-inline fw-semibold">{{ $auth.user?.name }}</span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-              <li>
-                <router-link class="dropdown-item" to="/dashboard">Dashboard</router-link>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <button class="dropdown-item text-danger" @click="logout">Logout</button>
-              </li>
+                <span class="d-none d-lg-inline fw-semibold">{{ $auth.user?.name }}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm" :class="{ show: dropdownOpen }">
+                <li><router-link class="dropdown-item" to="/dashboard">Dashboard</router-link></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><button class="dropdown-item text-danger" @click="logout">Logout</button></li>
+                </ul>
+            </li>
             </ul>
-          </li>
-        </ul>
     </div>
   </div>
 </nav>
@@ -55,8 +51,14 @@
 
 <script setup>
 import axios from 'axios'
+import { ref } from 'vue'
 
 
+const dropdownOpen = ref(false)
+
+const toggleDropdown = () => {
+  dropdownOpen.value = !dropdownOpen.value
+}
 const logout = async () => {
     try {
         const token = localStorage.getItem('auth_token')

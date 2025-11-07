@@ -45,12 +45,14 @@ import axios from '../../axios'
 import { defineExpose } from 'vue'
 
 const modal = ref(null)
+const categories = ref([])
 let bsModal = null
 
-const post = ref({ title: '', body: '', thumbnail: '' })
+const post = ref({ title: '', body: '', thumbnail: '', category_ids: [] })
 
 onMounted(() => {
     bsModal = new Modal(modal.value, { backdrop: 'static', keyboard: false })
+    fetchCategories();
 })
 
 const showModal = () => bsModal?.show()
@@ -58,6 +60,15 @@ const hideModal = () => bsModal?.hide()
 
 const setPost = (p) => {
     post.value = { ...p }
+}
+
+const fetchCategories = async () => {
+    try {
+        const res = await axios.get('/api/category/all')
+        categories.value = res.data
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 // save post

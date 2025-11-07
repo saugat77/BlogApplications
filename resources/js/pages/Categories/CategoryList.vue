@@ -45,7 +45,7 @@ import axios from '../../axios'
 import CategoryModal from './CategoryModal.vue';
 import Pagination from '../../Common/Pagination.vue'
 
-const categories = ref({ data: [], current_page: 1, last_page: 1, per_page: 10 })
+const categories = ref({ data: [], current_page: 1, last_page: 1, per_page: 6 })
 const categoryModal = ref(null)
 
 // Fetch categories with pagination
