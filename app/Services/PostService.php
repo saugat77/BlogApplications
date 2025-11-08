@@ -20,6 +20,17 @@ class PostService
             ->appends($request->query());
         return $posts;
     }
+
+    public function fetchPostAccordingly($request)
+    {
+         if($request->user()->is_admin){
+            $data = PostModel::with(['author', 'category', 'tags'])->latest()->paginate(6);
+        }else{
+            $data = PostModel::where('user_id',$request->user()->id)->with(['author', 'category', 'tags'])->latest()->paginate(6);
+        }
+        return $data;
+    }
+
     public function createPost(array $data, $user): PostModel
     {
         return DB::transaction(function () use ($data, $user) {

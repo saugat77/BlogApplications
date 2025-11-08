@@ -67,9 +67,8 @@ const login = async () => {
             email: email.value,
             password: password.value
         })
-        console.log(response.data);
         localStorage.setItem('auth_token', response.data.access_token)
-        router.push('/dashboard')
+        router.push('/post_lists')
     } catch (err) {
         error.value = err.response?.data?.message || 'Something went wrong'
     } finally {

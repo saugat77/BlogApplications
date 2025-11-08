@@ -25,7 +25,8 @@ class PostController extends Controller
     }
     public function fetchAllPosts(Request $request)
     {
-        $data = PostModel::with(['author', 'category', 'tags'])->latest()->paginate(6);
+          $data = $this->postService->fetchPostAccordingly($request);
+
         return response()->json($data, 201);
     }
 

@@ -38,7 +38,7 @@
         <div class="card h-100 shadow-sm">
           <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text text-muted">By {{ post.author.name }} | {{ post.category.name }}</p>
+            <p class="card-text text-muted">By {{ post?.author?.name }} | {{ post?.category?.name }}</p>
             <p class="card-text">{{ post.thumbnail }}</p>
           <p :class="{'mb-2': true}"
             :style="!showFull[post.id] ?

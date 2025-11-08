@@ -37,7 +37,9 @@
                 <span class="d-none d-lg-inline fw-semibold">{{ $auth.user?.name }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm" :class="{ show: dropdownOpen }">
-                <li><router-link class="dropdown-item" to="/dashboard">Dashboard</router-link></li>
+                    <li><router-link class="dropdown-item" to="/post_lists">{{ $auth.user?.is_admin ? 'All' : 'Your'}} Posts</router-link></li>
+                <li><router-link class="dropdown-item"  v-if="$auth.user?.is_admin" to="/category_lists">Categories</router-link></li>
+                <li><router-link class="dropdown-item"  v-if="$auth.user?.is_admin" to="/tag_lists">Tags</router-link></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li><button class="dropdown-item text-danger" @click="logout">Logout</button></li>
                 </ul>
@@ -52,6 +54,7 @@
 <script setup>
 import axios from 'axios'
 import { ref } from 'vue'
+import router from './router/index.js'
 
 
 const dropdownOpen = ref(false)
@@ -62,7 +65,6 @@ const toggleDropdown = () => {
 const logout = async () => {
     try {
         const token = localStorage.getItem('auth_token')
-        console.log(token)
         const response = await axios.post(`/api/logout`)
 
 
@@ -71,7 +73,7 @@ const logout = async () => {
   } finally {
         localStorage.removeItem('auth_token');
         delete axios.defaults.headers.common['Authorization'];
-        router.push('/login')
+        router.push('/')
   }
 }
 </script>

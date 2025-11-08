@@ -7,6 +7,9 @@
                     <button type="button" class="btn-close" @click="hideModal"></button>
                 </div>
                 <div class="modal-body">
+                     <div v-if="errorMessage" class="alert alert-danger">
+                        {{ errorMessage }}
+                    </div>
                     <div class="mb-3">
                         <label class="form-label">Categories</label>
                      <multiselect
@@ -61,6 +64,8 @@ const modal = ref(null)
 const categories = ref([])
 const tags = ref([])
 let bsModal = null
+const errorMessage = ref('')
+
 
 const post = ref({ title: '', body: '', thumbnail: '', category_ids: [], tag_ids:[] })
 
@@ -118,6 +123,13 @@ const savePost = async () => {
 
 
     } catch (err) {
+        if (err.response?.data?.errors?.name) {
+        errorMessage.value = err.response.data.errors.name[0]
+        } else if (err.response?.data?.message) {
+        errorMessage.value = err.response.data.message
+        } else {
+        errorMessage.value = 'Something went wrong.'
+    }
         console.error(err)
     }
 }
