@@ -1,59 +1,187 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Application README</title>
+</head>
+<body>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<h1>Blog Application</h1>
+<p>A full-stack blog application built with <strong>Laravel 10</strong> (backend) and <strong>Vue 3 + Bootstrap 5</strong> (frontend), supporting posts, categories, tags, comments, and dynamic filtering with pagination.</p>
 
-## About Laravel
+<h2>Requirements</h2>
+<ul>
+    <li>PHP >= 8.3</li>
+    <li>Laravel >= 10</li>
+    <li>Node.js >= 20</li>
+    <li>Vue 3</li>
+    <li>Bootstrap 5</li>
+    <li>Composer</li>
+    <li>npm</li>
+</ul>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<h2>Installation</h2>
+<ol>
+    <li>Clone the repository:
+        <pre>git clone https://github.com/yourusername/blog-application.git
+cd blog-application</pre>
+    </li>
+    <li>Install PHP dependencies:
+        <pre>composer install</pre>
+    </li>
+    <li>Install Node dependencies:
+        <pre>npm install
+npm run dev  <!-- to run frontend --></pre>
+    </li>
+    <li>Setup environment file:
+        <pre>cp .env.example .env</pre>
+        <p><strong>Note:</strong> Check your database path; this project uses SQLite by default.</p>
+    </li>
+    <li>Generate app key:
+        <pre>php artisan key:generate</pre>
+    </li>
+    <li>Run migrations and seeders:
+        <pre>php artisan migrate --seed</pre>
+    </li>
+    <li>Serve the application:
+        <pre>php artisan serve</pre>
+    </li>
+</ol>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<h2>Admin Login</h2>
+<ul>
+    <li>Email: <code>admin@example.com</code></li>
+    <li>Password: <code>password123</code></li>
+</ul>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<div class="container">
+    <h1 class="mb-4">Blog Application - User Manual</h1>
 
-## Learning Laravel
+    <h2>1. Login</h2>
+    <p>To access the admin features, login using the admin account:</p>
+    <ul>
+        <li>Email: <code>admin@example.com</code></li>
+        <li>Password: <code>password123</code></li>
+    </ul>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+  
+    <p>After login, you will see the post lists with the following information:</p>
+     <h2>3. Managing Posts</h2>
+    <ol>
+        <li><strong>Create a Post:</strong> Click the <code>New Post</code> button. Fill out the title, body, thumbnail, select a category, and choose tags. Click <code>Create</code> to save.</li>
+        <li><strong>Edit a Post:</strong> Click <code>Edit</code> on a post card. Update any field and click <code>Update</code>.</li>
+        <li><strong>Delete a Post:</strong> Click <code>Delete</code> on a post card. Confirm deletion to remove the post.</li>
+    </ol>
+      <h2>2. Dashboard Overview</h2>
+      to visit all the post click on home in navbar and u will be redirected to home with all the post with search filter
+    <ul>
+        <li>Post Title</li>
+        <li>Author Name</li>
+        <li>Category Name</li>
+        <li>Thumbnail & Body preview</li>
+        <li>Comment count</li>
+    </ul>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+   
 
-## Laravel Sponsors
+    <h2>4. Categories & Tags</h2>
+    <p>These are managed by admin only:</p>
+    <ul>
+        <li>Categories: single-select per post</li>
+        <li>Tags: multi-select per post</li>
+    </ul>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    <h2>5. Comments</h2>
+    <p>Each post can have comments. Features include:</p>
+    <ul>
+        <li>Click <code>Show Comments</code> to expand comments</li>
+        <li>View the total number of comments per post</li>
+        <li>Add a comment in the input box and click <code>Send</code></li>
+        <li>Edit or delete a comment (for your own comments)</li>
+    </ul>
 
-### Premium Partners
+    <h2>6. Searching and Filtering Posts</h2>
+    <p>Use the search/filter panel at the top to narrow down posts:</p>
+    <ul>
+        <li>Filter by Title</li>
+        <li>Filter by Author</li>
+        <li>Filter by Category</li>
+        <li>Filter by Tags</li>
+        <li>Click <code>Search</code> to apply filters or <code>Reset</code> to clear them</li>
+    </ul>
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+    <h2>7. Pagination</h2>
+    <p>Posts are paginated. Use the pagination controls at the bottom of the page to navigate between pages.</p>
 
-## Contributing
+    <h2>8. Modal Forms</h2>
+    <p>Creating or editing a post opens a modal form (popup) for entering details. Features include:</p>
+    <ul>
+        <li>Title input</li>
+        <li>Body textarea</li>
+        <li>Thumbnail textarea</li>
+        <li>Category selection (single-select)</li>
+        <li>Tags selection (multi-select)</li>
+        <li><code>Create</code> or <code>Update</code> button</li>
+        <li><code>Cancel</code> button to close modal without saving</li>
+    </ul>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    <h2>9. Soft Deletes</h2>
+    <p>Posts, categories, tags, and comments are not permanently deleted. They are soft-deleted, meaning they can be restored if needed (currently handled in backend).</p>
 
-## Code of Conduct
+    <h2>10. Notes</h2>
+    <ul>
+        <li>Only admin can manage posts, categories, and tags.</li>
+        <li>Comments can be added by any authenticated user.</li>
+        <li>Filters are case-insensitive.</li>
+        <li>Character limit for comments is enforced (max 200 characters).</li>
+    </ul>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    <h2>11. Support</h2>
+    <p>If you encounter any issues, contact the developer or refer to the documentation.</p>
 
-## Security Vulnerabilities
+</div>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<h2>Features</h2>
 
-## License
+<h3>Posts</h3>
+<ul>
+    <li>Create, edit, delete posts</li>
+    <li>Assign categories and tags (multi-select)</li>
+    <li>Thumbnail support</li>
+</ul>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<h3>Categories & Tags (Admin Only)</h3>
+<ul>
+    <li>Categories are single-select when creating a post</li>
+    <li>Tags are multi-select per post</li>
+</ul>
+
+<h3>Comments</h3>
+<ul>
+    <li>Add comments to posts</li>
+    <li>Real-time comment count display</li>
+    <li>Edit and delete comments (for the comment owner)</li>
+</ul>
+
+<h3>Filters & Search</h3>
+<ul>
+    <li>Filter posts by title, author, category, or tags</li>
+</ul>
+
+<h3>Pagination</h3>
+<ul>
+    <li>Server-side pagination with a reusable Pagination component</li>
+</ul>
+
+<h3>Modal Forms</h3>
+<ul>
+    <li>Bootstrap modals for creating and editing posts</li>
+</ul>
+
+<h3>Soft Deletes</h3>
+<ul>
+    <li>Posts, categories, tags, and comments support soft deletes</li>
+</ul>
+
+</body>
+</html>
