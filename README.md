@@ -64,8 +64,16 @@ npm run dev  <!-- to run frontend --></pre>
         <li>Password: <code>password123</code></li>
     </ul>
 
-    <h2>2. Dashboard Overview</h2>
-    <p>After login, you will see the list of posts with the following information:</p>
+  
+    <p>After login, you will see the post lists with the following information:</p>
+     <h2>3. Managing Posts</h2>
+    <ol>
+        <li><strong>Create a Post:</strong> Click the <code>New Post</code> button. Fill out the title, body, thumbnail, select a category, and choose tags. Click <code>Create</code> to save.</li>
+        <li><strong>Edit a Post:</strong> Click <code>Edit</code> on a post card. Update any field and click <code>Update</code>.</li>
+        <li><strong>Delete a Post:</strong> Click <code>Delete</code> on a post card. Confirm deletion to remove the post.</li>
+    </ol>
+      <h2>2. Dashboard Overview</h2>
+      to visit all the post click on home in navbar and u will be redirected to home with all the post with search filter
     <ul>
         <li>Post Title</li>
         <li>Author Name</li>
@@ -74,12 +82,7 @@ npm run dev  <!-- to run frontend --></pre>
         <li>Comment count</li>
     </ul>
 
-    <h2>3. Managing Posts</h2>
-    <ol>
-        <li><strong>Create a Post:</strong> Click the <code>New Post</code> button. Fill out the title, body, thumbnail, select a category, and choose tags. Click <code>Create</code> to save.</li>
-        <li><strong>Edit a Post:</strong> Click <code>Edit</code> on a post card. Update any field and click <code>Update</code>.</li>
-        <li><strong>Delete a Post:</strong> Click <code>Delete</code> on a post card. Confirm deletion to remove the post.</li>
-    </ol>
+   
 
     <h2>4. Categories & Tags</h2>
     <p>These are managed by admin only:</p>
