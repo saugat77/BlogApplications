@@ -24,10 +24,9 @@ class PostRequest extends FormRequest
        return [
             'title' => 'required|string|max:255',
             'body' => 'required|string|min:10',
-            'excerpt' => 'nullable|string|max:500',
-            'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'nullable|array',
-            'tags.*' => 'exists:tags,id',
+            'thumbnail' => 'nullable|string|max:500',
+            'category_ids' => 'nullable|array',
+            'tag_ids' => 'nullable|array',
         ];
     }
 
@@ -36,8 +35,8 @@ class PostRequest extends FormRequest
         return [
             'title.required' => 'A post title is required.',
             'body.required' => 'The post body cannot be empty.',
-            'category_id.exists' => 'Selected category is invalid.',
-            'tags.*.exists' => 'One or more tags are invalid.',
+            'category_ids.exists' => 'Selected category is invalid.',
+            'tag_ids.*.exists' => 'One or more tags are invalid.',
         ];
     }
 }

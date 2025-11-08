@@ -23,6 +23,11 @@ class TagController extends Controller
         return response()->json($tags);
     }
 
+    public function fetchAllTags(){
+        $tags = TagsModel::all();
+        return response()->json($tags);
+    }
+
     public function store(Request $request)
     {
            $validated = $request->validate([

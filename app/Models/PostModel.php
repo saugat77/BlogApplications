@@ -11,7 +11,7 @@ class PostModel extends Model
    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'user_id', 'category_id', 'title', 'excerpt', 'body',
+        'user_id', 'title', 'thumbnail', 'body', 'category_id',
     ];
 
     public function author()

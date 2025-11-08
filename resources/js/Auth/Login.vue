@@ -40,7 +40,7 @@
             <div class="text-center mt-3">
                 <small class="text-muted">
                     Don’t have an account?
-                    <a href="#" class="text-primary text-decoration-none">Sign up</a>
+                    <router-link to="/register" class="text-primary text-decoration-none">Sign up</router-link>
                 </small>
             </div>
         </div>

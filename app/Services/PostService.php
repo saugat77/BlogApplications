@@ -23,18 +23,18 @@ class PostService
     {
         return DB::transaction(function () use ($data, $user) {
             // Create post
-            $post = $user->posts()->create([
+          $post = $user->posts()->create([
                 'title' => $data['title'],
                 'body' => $data['body'],
-                'excerpt' => $data['excerpt'] ?? null,
-                'category_id' => $data['category_id'] ?? null,
+                'thumbnail' => $data['thumbnail'] ?? null,
+                'category_id' => $data['category_ids']['id'],
             ]);
-
             // Attach tags if provided
             if (!empty($data['tags'])) {
+                dd(('here'));
                 $post->tags()->sync($data['tags']);
             }
-
+            dd('here');
             return $post->load('tags', 'category', 'author');
         });
     }

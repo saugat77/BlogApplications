@@ -9,24 +9,38 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Categories</label>
-                        <select v-model="post.category_ids" class="form-select" multiple>
-                            <option v-for="cat in categories" :key="cat.id" :value="cat.id">
-                                {{ cat.name }}
-                            </option>
-                        </select>
+                     <multiselect
+                        v-model="post.category_ids"
+                        :options="categories"
+                        :multiple="false"
+                        :track-by="'id'"
+                        :label="'name'"
+                        placeholder="Select items"
+                        />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Title</label>
                         <input v-model="post.title" class="form-control" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Thumbanail</label>
+                        <label class="form-label">Thumbnail</label>
                         <textarea v-model="post.thumbnail" class="form-control"></textarea>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Body</label>
                         <textarea v-model="post.body" class="form-control"></textarea>
+                    </div>
+                         <div class="mb-3">
+                        <label class="form-label">Tags</label>
+                     <multiselect
+                        v-model="post.tag_ids"
+                        :options="tags"
+                        :multiple="true"
+                        :track-by="'id'"
+                        :label="'name'"
+                        placeholder="Select items"
+                        />
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -42,10 +56,10 @@
 import { ref, onMounted } from 'vue'
 import { Modal } from 'bootstrap'
 import axios from '../../axios'
-import { defineExpose } from 'vue'
 
 const modal = ref(null)
 const categories = ref([])
+const tags = ref([])
 let bsModal = null
 
 const post = ref({ title: '', body: '', thumbnail: '', category_ids: [] })
@@ -53,6 +67,7 @@ const post = ref({ title: '', body: '', thumbnail: '', category_ids: [] })
 onMounted(() => {
     bsModal = new Modal(modal.value, { backdrop: 'static', keyboard: false })
     fetchCategories();
+    fetchTags();
 })
 
 const showModal = () => bsModal?.show()
@@ -70,6 +85,14 @@ const fetchCategories = async () => {
         console.error(err)
     }
 }
+const fetchTags = async () => {
+    try {
+        const res = await axios.get('/api/tag/all')
+        tags.value = res.data
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 // save post
 const savePost = async () => {
@@ -78,7 +101,7 @@ const savePost = async () => {
         else await axios.post('/api/posts', post.value)
         hideModal()
         emit('saved')
-        post.value = { title: '', body: '' } // reset
+        post.value = ref({ title: '', body: '', thumbnail: '', category_ids: [] }) // reset
     } catch (err) {
         console.error(err)
     }

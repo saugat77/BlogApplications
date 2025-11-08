@@ -27,7 +27,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
          $post = $this->postService->createPost($request->validated(), $request->user());
         return response()->json($post, 201);

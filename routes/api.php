@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/category/all',[ CategoryController::class, 'fetchAllCategories']);
 
     Route::resource('/tags', TagController::class);
+    Route::get('/tag/all', [TagController::class, 'fetchAllTags']);
 
     Route::post('/logout', [LoginController::class, 'logout']);
 });
