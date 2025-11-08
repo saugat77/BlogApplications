@@ -16,7 +16,7 @@ class PostService
             ->allowedIncludes(['author', 'category', 'tags', 'comments.user'])
             ->with(['author', 'category', 'tags', 'comments.user'])
             ->latest()
-            ->paginate(1)
+            ->paginate(6)
             ->appends($request->query());
         return $posts;
     }
@@ -25,19 +25,19 @@ class PostService
         return DB::transaction(function () use ($data, $user) {
             $categoryId = null;
             if (!empty($data['category_ids'])) {
-                $first = $data['category_ids'][0];
-                $categoryId = is_array($first) ? $first['id'] : $first;
+                $first = $data['category_ids']['id'];
+                // $categoryId = is_array($first) ? $first['id'] : $first;
             }
             // Create post
             $post = $user->posts()->create([
                 'title' => $data['title'],
                 'body' => $data['body'],
                 'thumbnail' => $data['thumbnail'] ?? null,
-                'category_id' => $categoryId,
+                'category_id' => $first,
             ]);
             // Attach tags if provided
             $tagIds = array_column($data['tag_ids'], 'id');
-            if (!empty($data['tag_ids'])) {
+            if (!empty($tagIds)) {
                 $post->tags()->sync($tagIds);
             }
             return $post->load('tags', 'category', 'author');
@@ -49,15 +49,14 @@ class PostService
             // --- Determine category ID ---
             $categoryId = null;
             if (!empty($data['category_ids'])) {
-                $first = $data['category_ids'][0];
-                $categoryId = is_array($first) ? $first['id'] : $first;
+                $first = $data['category_ids']['id'];
             }
 
             $post->update([
                 'title' => $data['title'],
                 'body' => $data['body'],
                 'thumbnail' => $data['thumbnail'] ?? null,
-                'category_id' => $categoryId,
+                'category_id' => $first,
             ]);
 
             $tagIds = [];

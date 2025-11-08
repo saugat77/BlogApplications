@@ -23,6 +23,11 @@ class PostController extends Controller
         $data = $this->postService->getAllPosts($request);
         return response()->json($data, 201);
     }
+    public function fetchAllPosts(Request $request)
+    {
+        $data = PostModel::with(['author', 'category', 'tags'])->latest()->paginate(6);
+        return response()->json($data, 201);
+    }
 
     /**
      * Store a newly created resource in storage.

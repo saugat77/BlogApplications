@@ -55,8 +55,9 @@ const postModal = ref(null)
 
 const fetchPosts = async (page = 1) => {
   try {
-   const res = await axios.get('/api/posts', { params: { page } })
-    const data = res?.data.original
+   const res = await axios.get('/api/post/all', { params: { page } })
+    const data = res?.data
+    console.log(data)
         posts.value = data.data
         posts.value.current_page = data.current_page
         posts.value.last_page = data.last_page

@@ -72,7 +72,12 @@ onMounted(() => {
 })
 
 const showModal = () => bsModal?.show()
-const hideModal = () => bsModal?.hide()
+const hideModal = () => {
+    bsModal?.hide()
+    post.value = { title: '', body: '', thumbnail: '', category_ids: [], tag_ids: [] }
+
+
+}
 
 const setPost = (p) => {
    post.value = {
@@ -109,7 +114,9 @@ const savePost = async () => {
         else await axios.post('/api/posts', post.value)
         hideModal()
         emit('saved')
-        post.value = ref({ title: '', body: '', thumbnail: '', category_ids: [], tag_ids: [] }) // reset
+        post.value = { title: '', body: '', thumbnail: '', category_ids: [], tag_ids: [] }
+
+
     } catch (err) {
         console.error(err)
     }

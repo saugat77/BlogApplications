@@ -39,7 +39,17 @@
           <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text text-muted">By {{ post.author.name }} | {{ post.category.name }}</p>
-            <p class="card-text">{{ post.excerpt }}</p>
+            <p class="card-text">{{ post.thumbnail }}</p>
+          <p :class="{'mb-2': true}"
+            :style="!showFull[post.id] ?
+                        'display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;'
+                        : ''">
+            {{ post.body }}
+            </p>
+            <button v-if="post.body.length > 200" class="btn btn-link btn-sm p-0"
+                    @click="showFull[post.id] = !showFull[post.id]">
+            {{ showFull[post.id] ? 'Show Less' : 'Read More' }}
+            </button>
             <div>
               <span v-for="tag in post.tags" :key="tag.id" class="badge bg-info me-1">
                 {{ tag.name }}
@@ -91,6 +101,7 @@ const posts = ref({
   current_page: 1,
   last_page: 1
 })
+const showFull = reactive({})
 const categories = ref([])
 const tags = ref([])
 const filters = reactive({ title: '', author: '', category: '', tag: '' })
