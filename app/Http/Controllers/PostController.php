@@ -33,35 +33,29 @@ class PostController extends Controller
         return response()->json($post, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PostRequest $request,PostModel $post)
     {
-        //
+        $updatedPost = $this->postService->updatePost($post, $request->validated());
+
+        return response()->json([
+            'message' => 'Post updated successfully',
+            'post' => $updatedPost,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(PostModel $post)
     {
-        //
+    $post->delete();
+
+    return response()->json([
+        'message' => 'Post deleted successfully',
+    ]);
     }
 }

@@ -41,13 +41,6 @@ class CategoryController extends Controller
         return response()->json($category, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(CategoryModel $category)
-    {
-        return response()->json($category);
-    }
 
     /**
      * Update the specified resource in storage.

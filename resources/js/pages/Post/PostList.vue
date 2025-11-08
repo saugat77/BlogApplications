@@ -12,7 +12,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="text-muted">By {{ post.author?.name }} | {{ post.category?.name }}</p>
-            <p>{{ post.excerpt }}</p>
+            <p>{{ post.thumbnail }}</p>
           </div>
           <div class="card-footer bg-light">
             <button class="btn btn-sm btn-outline-primary" @click="editPost(post)">
@@ -25,6 +25,11 @@
         </div>
       </div>
     </div>
+      <Pagination
+      :current-page="posts.current_page"
+       :total-pages="posts.last_page"
+      @page-changed="fetchPosts"
+    />
 
     <!-- Modal Component -->
     <PostModal ref="postModal" :categories="categories" :tags="tags" @saved="fetchPosts" />
@@ -35,18 +40,26 @@
 import { ref, onMounted } from 'vue'
 import axios from '../../axios'
 import PostModal from './PostForm.vue'
+import Pagination from '../../Common/Pagination.vue'
 
-const posts = ref([])
+const posts = ref({
+  data: [],
+  current_page: 1,
+  last_page: 1
+})
 const categories = ref([])
 const tags = ref([])
 
 // ref to modal
 const postModal = ref(null)
 
-const fetchPosts = async () => {
+const fetchPosts = async (page = 1) => {
   try {
-    const res = await axios.get('/api/posts')
-    posts.value = res?.data
+   const res = await axios.get('/api/posts', { params: { page } })
+    const data = res?.data.original
+        posts.value = data.data
+        posts.value.current_page = data.current_page
+        posts.value.last_page = data.last_page
   } catch (err) {
     console.error(err)
   }

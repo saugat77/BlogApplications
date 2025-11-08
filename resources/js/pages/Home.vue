@@ -72,23 +72,47 @@
     <div v-else class="text-center text-muted mt-5">
       <p>No posts found.</p>
     </div>
+     <Pagination
+      :current-page="posts.current_page"
+       :total-pages="posts.last_page"
+      @page-changed="fetchPosts"
+    />
+
   </div>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import axios from 'axios'
+import Pagination from '../Common/Pagination.vue'
 
-const posts = ref([])
+const posts = ref({
+  data: [],
+  current_page: 1,
+  last_page: 1
+})
 const categories = ref([])
 const tags = ref([])
 const filters = reactive({ title: '', author: '', category: '', tag: '' })
 const showComments = reactive({})
 const newComment = reactive({})
 
-const fetchPosts = async () => {
-  const { data } = await axios.get('/api/posts', { params: filters })
-  posts.value = data
+const fetchPosts = async (page = 1) => {
+    console.log(posts)
+
+  const { data } = await axios.get('/api/posts', { params: {
+    page: page,
+    filter: {
+      title: filters.title,
+     ' author.name': filters.author,
+      'category.name': filters.category,
+      'tags.name': filters.tag
+    }
+  } })
+  console.log( data)
+  posts.value = data.data
+    posts.value.current_page = data.current_page
+ posts.value.last_page = data.last_page
 }
 
 const resetFilters = () => {
@@ -112,10 +136,10 @@ onMounted(async () => {
     await fetchPosts()
 
     const catRes = await axios.get('/api/category/all')
-    // const tagRes = await axios.get('/api/tags') // uncomment when ready
+    const tagRes = await axios.get('/api/tag/all')
 
     categories.value = catRes.data
-    // tags.value = tagRes?.data || [] // safe fallback
+    tags.value = tagRes?.data
   } catch (err) {
     console.error('Error fetching posts or categories:', err)
   }

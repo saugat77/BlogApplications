@@ -62,10 +62,11 @@ const categories = ref([])
 const tags = ref([])
 let bsModal = null
 
-const post = ref({ title: '', body: '', thumbnail: '', category_ids: [] })
+const post = ref({ title: '', body: '', thumbnail: '', category_ids: [], tag_ids:[] })
 
 onMounted(() => {
     bsModal = new Modal(modal.value, { backdrop: 'static', keyboard: false })
+    console.log('Modal mounted', modal.value)
     fetchCategories();
     fetchTags();
 })
@@ -74,7 +75,14 @@ const showModal = () => bsModal?.show()
 const hideModal = () => bsModal?.hide()
 
 const setPost = (p) => {
-    post.value = { ...p }
+   post.value = {
+        id: p.id || null,
+        title: p.title || '',
+        body: p.body || '',
+        thumbnail: p.thumbnail || '',
+        category_ids: p.category ? [p.category] : [], // wrap single category as array for multiselect
+        tag_ids: p.tags
+        }
 }
 
 const fetchCategories = async () => {
@@ -101,7 +109,7 @@ const savePost = async () => {
         else await axios.post('/api/posts', post.value)
         hideModal()
         emit('saved')
-        post.value = ref({ title: '', body: '', thumbnail: '', category_ids: [] }) // reset
+        post.value = ref({ title: '', body: '', thumbnail: '', category_ids: [], tag_ids: [] }) // reset
     } catch (err) {
         console.error(err)
     }
