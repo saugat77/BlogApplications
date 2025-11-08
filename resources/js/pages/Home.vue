@@ -60,7 +60,7 @@
           <!-- Comment section -->
           <div class="card-footer bg-light">
             <button class="btn btn-sm btn-outline-primary" @click="toggleComments(post.id)">
-              {{ showComments[post.id] ? 'Hide' : 'Show' }} Comments
+              {{ showComments[post.id] ? 'Hide' : 'Show' }}  Comments ({{ post.comments.length }})
             </button>
 
             <div v-if="showComments[post.id]" class="mt-3">

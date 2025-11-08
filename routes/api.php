@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
@@ -23,6 +24,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::resource('/tags', TagController::class);
     Route::get('/tag/all', [TagController::class, 'fetchAllTags']);
+
+    Route::post('/posts/{postId}/comments', [CommentController::class, 'store']);
+    ttp://localhost:8000/api/posts/10/comments
 
     Route::post('/logout', [LoginController::class, 'logout']);
 });
