@@ -7,6 +7,7 @@ import PostLists from '../pages/Post/PostList.vue'
 import { auth } from '../Auth/auth'
 import CategoryList from '../pages/Categories/CategoryList.vue'
 import TagList from '../pages/Tags/TagList.vue'
+import NotFound from '../pages/NotFound.vue'
 
 const routes = [
   {
@@ -51,6 +52,12 @@ const routes = [
     component: TagList,
     meta: { requiresAuth: true }
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: NotFound,
+    meta: { public: true }
+  }
 ]
 
 const router = createRouter({
@@ -71,9 +78,6 @@ router.beforeEach(async (to, from, next) => {
     return next('/login')
   }
 
-  if (to.meta.guest && auth.isAuthenticated) {
-    return next('/dashboard')
-  }
 
   next()
 })

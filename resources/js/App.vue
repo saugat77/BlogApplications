@@ -74,7 +74,7 @@ const logout = async () => {
   } finally {
         localStorage.removeItem('auth_token');
         delete axios.defaults.headers.common['Authorization'];
-        router.push('/')
+        router.push('/login')
   }
 }
 </script>

@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CommentMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,7 +27,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/tag/all', [TagController::class, 'fetchAllTags']);
 
     Route::post('/posts/{postId}/comments', [CommentController::class, 'store']);
-    ttp://localhost:8000/api/posts/10/comments
+     Route::put('/comments/{comment}', [CommentController::class, 'update'])->middleware(CommentMiddleware::class);
+     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->middleware(CommentMiddleware::class);
 
     Route::post('/logout', [LoginController::class, 'logout']);
 });

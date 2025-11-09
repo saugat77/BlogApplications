@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CommentModel;
 use App\Models\PostModel;
 use Illuminate\Http\Request;
 
@@ -34,14 +35,32 @@ class CommentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         $request->validate([
+            'body' => 'required|string|max:1000',
+        ]);
+
+        $comment = CommentModel::findOrFail($id);
+
+        $comment->update([
+            'body' => $request->body,
+        ]);
+
+        return response()->json([
+            'message' => 'Comment updated successfully',
+            'comment' => $comment->load('user')
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(CommentModel $comment)
     {
-        //
+        $comment->delete();
+
+        return response()->json([
+            'message' => 'Comment deleted successfully',
+            'comment_id' => $comment->id,
+        ]);
     }
 }
