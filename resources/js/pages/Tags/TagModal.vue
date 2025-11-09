@@ -8,7 +8,7 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label class="form-label">Name</label>
+            <label class="form-label">Name <span class="text-danger">*</span></label>
             <input v-model="tag.name" class="form-control" placeholder="Enter tag name" />
             <small class="text-danger">{{ error }}</small>
           </div>

@@ -12,7 +12,7 @@
                 {{ errorMessage }}
             </div>
           <div class="mb-3">
-            <label class="form-label">Category Name</label>
+            <label class="form-label">Category Name <span class="text-danger">*</span></label>
             <input v-model="category.name" type="text" class="form-control" placeholder="Enter name" />
           </div>
         </div>
@@ -43,7 +43,10 @@ onMounted(() => {
 })
 
 const showModal = () => bsModal?.show()
-const hideModal = () => bsModal?.hide()
+const hideModal = () => {
+    bsModal?.hide()
+    errorMessage.value = '';
+}
 
 const setCategory = (cat) => {
   if (cat) category.value = { ...cat }

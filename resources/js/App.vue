@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" to="/">Home</router-link>
+          <router-link class="nav-link" v-if="$auth.isAuthenticated" to="/">Home</router-link>
         </li>
         <li class="nav-item" v-if="!$auth.isAuthenticated">
           <router-link class="nav-link" to="/login">Login</router-link>
@@ -54,7 +54,8 @@
 <script setup>
 import axios from 'axios'
 import { ref } from 'vue'
-import router from './router/index.js'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 
 const dropdownOpen = ref(false)

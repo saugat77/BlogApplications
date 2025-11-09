@@ -11,7 +11,7 @@
                         {{ errorMessage }}
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Categories</label>
+                        <label class="form-label">Categories <span class="text-danger">*</span></label>
                      <multiselect
                         v-model="post.category_ids"
                         :options="categories"
@@ -22,16 +22,16 @@
                         />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Title</label>
+                        <label class="form-label">Title <span class="text-danger">*</span></label>
                         <input v-model="post.title" class="form-control" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Thumbnail</label>
+                        <label class="form-label">Thumbnail <span class="text-danger">*</span></label>
                         <textarea v-model="post.thumbnail" class="form-control"></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Body</label>
+                        <label class="form-label">Body <span class="text-danger">*</span></label>
                         <textarea v-model="post.body" class="form-control"></textarea>
                     </div>
                          <div class="mb-3">
@@ -71,7 +71,6 @@ const post = ref({ title: '', body: '', thumbnail: '', category_ids: [], tag_ids
 
 onMounted(() => {
     bsModal = new Modal(modal.value, { backdrop: 'static', keyboard: false })
-    console.log('Modal mounted', modal.value)
     fetchCategories();
     fetchTags();
 })
@@ -80,6 +79,8 @@ const showModal = () => bsModal?.show()
 const hideModal = () => {
     bsModal?.hide()
     post.value = { title: '', body: '', thumbnail: '', category_ids: [], tag_ids: [] }
+    errorMessage.value = '';
+
 
 
 }
@@ -120,6 +121,7 @@ const savePost = async () => {
         hideModal()
         emit('saved')
         post.value = { title: '', body: '', thumbnail: '', category_ids: [], tag_ids: [] }
+        errorMessage.value = '';
 
 
     } catch (err) {
